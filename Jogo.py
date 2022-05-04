@@ -1,4 +1,5 @@
 import random
+import math
 ex = {
   "asia": {
     "afeganistao": {
@@ -77,3 +78,11 @@ def sorteia_pais(dic):
     l_pais = list(dicpais.keys())
     pais = random.choice(l_pais)
     return pais
+def haversine(r,p1,l1,p2,l2):
+    p1 = math.radians(p1)
+    p2 = math.radians(p2)
+    l1 = math.radians(l1)
+    l2 = math.radians(l2)
+    dist = 2 * r * math.asin(((math.sin((p2-p1)/2)**2) + math.cos(p1) * math.cos(p2) * (math.sin((l2-l1)/2) ** 2))** 0.5)
+    
+    return dist
