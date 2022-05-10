@@ -86,3 +86,18 @@ def haversine(r,p1,l1,p2,l2):
     dist = 2 * r * math.asin(((math.sin((p2-p1)/2)**2) + math.cos(p1) * math.cos(p2) * (math.sin((l2-l1)/2) ** 2))** 0.5)
     
     return dist
+def adiciona_em_ordem(pais,dist,l):
+    l2 = [[pais,dist]]
+    if l2[0][0] in l:
+        return l2[0]
+    elif l == []:
+        l.append(l2[0])
+        return l
+    else:
+      for i in range(len(l)):
+            print(i)
+            if l[i][1]<l2[0][1]:
+             0
+            else:
+                l.insert(i,l2[0])
+                return l            
