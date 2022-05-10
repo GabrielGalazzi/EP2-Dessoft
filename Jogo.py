@@ -1,3 +1,4 @@
+from operator import truediv
 import random
 import math
 ex = {
@@ -100,4 +101,10 @@ def adiciona_em_ordem(pais,dist,l):
              0
             else:
                 l.insert(i,l2[0])
-                return l            
+                return l
+
+def esta_na_lista(pais,l):
+  for i in range(len(l)):
+    if pais in l[i][0]:
+      return True
+  return False
