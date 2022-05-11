@@ -108,3 +108,24 @@ def esta_na_lista(pais,l):
     if pais in l[i][0]:
       return True
   return False
+
+def sorteia_letra(palavra,l):
+    i = False
+    f = 0
+    g = 0
+    alfabeto = 'abcdefghijklmnopqrstuvwxyz'
+    letra = str.lower(random.choice(palavra))
+    while g < len(palavra):
+        if str.lower(palavra[f]) in l:
+            f+=1
+        g += 1
+    if f == len(palavra):
+        return ''
+    else:
+        while i != True:
+            if letra in l or letra not in alfabeto:
+                letra = str.lower(random.choice(palavra))
+            else:
+                i = True
+        return letra
+  
