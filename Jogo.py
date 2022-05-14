@@ -3925,7 +3925,7 @@ while c != True:
     escolha = str(input('Diga-me, que pais escolheu? '))
     if escolha not in nome_paises:
       print('Esse pais não existe, tente novamente')
-      Return(3094)
+      Return(3924)
     elif esta_na_lista(escolha,chutes_dados) == False and escolha in nome_paises:
       tentativas-=1
       if escolha == pais:
@@ -3936,7 +3936,7 @@ while c != True:
         resposta = str(input('Esta disposto a jogar outra roada? [S/N]: '))
         if resposta == 'S':
           print('Oh shit, here we go again...')
-          Return(3897)
+          Return(3911)
         else: 
           print('You shall return, I will be wating')
           c = True
@@ -3947,7 +3947,7 @@ while c != True:
         else:
           print('Well then, amuse me.')
           tentativas +=1
-          Return(3094)
+          Return(3924)
       elif escolha == 'dica':
         print('Bem vindo(ou não) ao mercado de dicas\n Dicas:\n 1.Cor da bandeira: 4 tentativas\n 2.Letra da capital: 3 tentativas\n 3.Area: 6 tentativas\n 4.População: 5 tentativas\n 5.Continente: 7 tentativas')
         print('Para sair sem comprar nada digite 0')
@@ -3955,13 +3955,14 @@ while c != True:
         escolha_dica = str(input('Qual é sua escolha? [0,1,2,3,4,5]:'))
         if escolha_dica == 0:
           print('Voce deixa o mercado de mãos vazias.')
-          Return(3094)
+          Return(3924)
         elif escolha_dica == 1 and tentativas>4:
           tentativas -= 4
           cor_bandeira = sorteia_cor(pais,cores)
           cores.append(cor_bandeira)
           print('Voce adiquiriu: Cor da bandeira.')
           print('A bandeira possui a cor: {}.'.format(cores))
+          Return(3924)
         elif escolha_dica == 2 and tentativas>3:
           tentativas -=3
           capital_pais = dic[pais]['capital']
@@ -3969,27 +3970,52 @@ while c != True:
           l.append(letra_capital)
           print('Voce adquiriu: Letra da capital.')
           print('Uma (das) letra(s) da capital do pais é(são): {}.'.format(l))
+          Return(3924)
         elif escolha_dica == 3 and area != 'comprada' and tentativas>6:
           area = 'comprada'
           tentativas -= 6
           area_pais = dic[pais]['area']
           print('Voce adiquiriu: Area do pais.')
           print('A area do pais é: {} '.format(area_pais))
+          Return(3924)
         elif escolha_dica == 4 and populacao != 'comprada' and tentativas>5:
           populacao = 'comprada'
           tentativas -= 5
           populacao_pais = dic[pais]['populacao']
           print('Voce adiquiriu: População do pais.')
           print('A população do pais é: {} '.format(populacao_pais))
+          Return(3924)
         elif escolha_dica == 5 and continente != 'comprado' and tentativas >7:
           continente = 'comprado'
           tentativas -= 7
           continente_pais = dic[pais]['continente']
           print('Voce adiquiriu: Continente do pais.')
           print('O continente do pais é: {} '.format(continente_pais))
+          Return(3924)
         elif escolha_dica == 3 and area == 'comprada':
           print('Voce ja comprou essa dica.')
-
+          Return(3954)
+        elif escolha_dica == 4 and populacao == 'comprada':
+          print('Voce ja comprou essa dica.')
+          Return(3954)
+        elif escolha_dica == 5 and continente == 'comprado':
+          print('Voce ja comprou essa dica.')
+          Return(3954)
+        elif escolha_dica == 1 and tentativas<=4:
+          print('Voce não possu tentativas suficentes para compra essa dica.')
+          Return(3954)
+        elif escolha_dica == 2 and tentativas<=3:
+          print('Voce não possu tentativas suficentes para compra essa dica.')
+          Return(3954)
+        elif escolha_dica == 3 and tentativas<=6:
+          print('Voce não possu tentativas suficentes para compra essa dica.')
+          Return(3954)
+        elif escolha_dica == 4 and tentativas<=5:
+          print('Voce não possu tentativas suficentes para compra essa dica.')
+          Return(3954)
+        elif escolha == 5 and tentativas<=7:
+          print('Voce não possu tentativas suficentes para compra essa dica.')
+          Return(3954)
 
 
 
@@ -3999,5 +4025,5 @@ while c != True:
 
 
 
-      Return(3094)
+      Return(3024)
 
