@@ -45,8 +45,8 @@ def adiciona_em_ordem(pais,dist,l):
 def esta_na_lista(pais,l):
   for i in range(len(l)):
     if pais in l[i][0]:
-      return True
-  return False
+      return 1
+  return 0
 
 def sorteia_letra(palavra,l):
     i = False
@@ -85,7 +85,8 @@ def sorteia_cor(pais,cores):
 
 c = False
 
-r = EARTH_RADIUS = 6371
+
+
 
 
 
@@ -3906,10 +3907,9 @@ dicraw = {
 
 dic = normaliza(dicraw)
 
-
 while c != True:
   #linha reset game
-  pais = sorteia_pais(dic)
+  pais = str(sorteia_pais(dic))
   nome_paises = list(dic.keys())
   print('Bem vindo ao Insper países\n Que os jogos começem!')
   print('O pais foi escolhido, may the odds be ever in your favor.')
@@ -3922,108 +3922,133 @@ while c != True:
   chutes_dados = []
   while tentativas>0:
     #Linha para reset escolha
+    i = 0
+    print(pais)
     escolha = str(input('Diga-me, que pais escolheu? '))
-    if escolha not in nome_paises:
-      print('Esse pais não existe, tente novamente')
-      Return(3924)
-    elif esta_na_lista(escolha,chutes_dados) == False and escolha in nome_paises:
-      tentativas-=1
-      if escolha == pais:
-        resto = abs(tentativas - 20)
-        print('Muito bem, desta vez voce conseguiu.')
-        print('Voce usou: {} tentativas'.format(resto))
+    tentativas-=1
+    print(chutes_dados)
+    if esta_na_lista(escolha,chutes_dados)  == 1:
+      print('Voce ja tentou esse pais')
+    elif escolha in nome_paises:
+      p1 = dic[pais]['geo']['latitude']
+      l1 = dic[pais]['geo']['longitude']
+      p2 = dic[escolha]['geo']['latitude']
+      l2 = dic[escolha]['geo']['latitude']
+      distancia = haversine(raio,p1,l1,p2,l2)
+      print(adiciona_em_ordem(escolha,distancia,chutes_dados))
+    elif escolha == pais:
+      resto = abs(tentativas - 20)
+      print('Muito bem, desta vez voce conseguiu.')
+      print('Voce usou: {} tentativas'.format(resto))
+      resposta = str(input('Esta disposto a jogar outra roada? [S/N]: '))
+      if resposta == 'S':
+        print('Oh shit, here we go again...')
+        Return(3911)
+      else: 
+        print('You shall return, I will be wating')
+        c = True
+    elif escolha == 'desisto':
+      desistiu = str(input('Você realmente deseja fugir? [S/N]: '))
+      if desistiu == 'S':
+        print('Você esta livre, mas vou retornar um dia!')
+        tentativas = 0
+        c = True
+      else:
+        print('Well then, amuse me.')
+        tentativas +=1
+        Return(3924)
+    elif escolha == 'dica':
+      print('Bem vindo(ou não) ao mercado de dicas\n Dicas:\n 1.Cor da bandeira: 4 tentativas\n 2.Letra da capital: 3 tentativas\n 3.Area: 6 tentativas\n 4.População: 5 tentativas\n 5.Continente: 7 tentativas')
+      print('Para sair sem comprar nada digite 0')
+      #reset mercado
+      escolha_dica = str(input('Qual é sua escolha? [0,1,2,3,4,5]:'))
+      if escolha_dica == 0:
+        print('Voce deixa o mercado de mãos vazias.')
+        Return(3924)
+      elif escolha_dica == 1 and tentativas>4:
+        tentativas -= 4
+        cor_bandeira = sorteia_cor(pais,cores)
+        cores.append(cor_bandeira)
+        print('Voce adiquiriu: Cor da bandeira.')
+        print('A bandeira possui a cor: {}.'.format(cores))
+        tentativas +=1
+        Return(3924)
+      elif escolha_dica == 2 and tentativas>3:
+        tentativas -=3
+        capital_pais = dic[pais]['capital']
+        letra_capital = sorteia_letra(capital_pais,l)
+        l.append(letra_capital)
+        print('Voce adquiriu: Letra da capital.')
+        print('Uma (das) letra(s) da capital do pais é(são): {}.'.format(l))
+        tentativas +=1
+        Return(3924)
+      elif escolha_dica == 3 and area != 'comprada' and tentativas>6:
+        area = 'comprada'
+        tentativas -= 6
+        area_pais = dic[pais]['area']
+        print('Voce adiquiriu: Area do pais.')
+        print('A area do pais é: {} '.format(area_pais))
+        tentativas +=1
+        Return(3924)
+      elif escolha_dica == 4 and populacao != 'comprada' and tentativas>5:
+        populacao = 'comprada'
+        tentativas -= 5
+        populacao_pais = dic[pais]['populacao']
+        print('Voce adiquiriu: População do pais.')
+        print('A população do pais é: {} '.format(populacao_pais))
+        tentativas +=1
+        Return(3924)
+      elif escolha_dica == 5 and continente != 'comprado' and tentativas >7:
+        continente = 'comprado'
+        tentativas -= 7
+        continente_pais = dic[pais]['continente']
+        print('Voce adiquiriu: Continente do pais.')
+        print('O continente do pais é: {} '.format(continente_pais))
+        tentativas +=1
+        Return(3924)
+      elif escolha_dica == 3 and area == 'comprada':
+        print('Voce ja comprou essa dica.')
+        tentativas +=1
+        Return(3954)
+      elif escolha_dica == 4 and populacao == 'comprada':
+        print('Voce ja comprou essa dica.')
+        tentativas +=1
+        Return(3954)
+      elif escolha_dica == 5 and continente == 'comprado':
+        print('Voce ja comprou essa dica.')
+        tentativas +=1
+        Return(3954)
+      elif escolha_dica == 1 and tentativas<=4:
+        print('Voce não possu tentativas suficentes para compra essa dica.')
+        tentativas +=1
+        Return(3954)
+      elif escolha_dica == 2 and tentativas<=3:
+        print('Voce não possu tentativas suficentes para compra essa dica.')
+        tentativas +=1
+        Return(3954)
+      elif escolha_dica == 3 and tentativas<=6:
+        print('Voce não possu tentativas suficentes para compra essa dica.')
+        tentativas +=1
+        Return(3954)
+      elif escolha_dica == 4 and tentativas<=5:
+        print('Voce não possu tentativas suficentes para compra essa dica.')
+        tentativas +=1
+        Return(3954)
+      elif escolha == 5 and tentativas<=7:
+        print('Voce não possu tentativas suficentes para compra essa dica.')
+        tentativas +=1
+        Return(3954)
+      elif esta_na_lista(escolha,chutes_dados) == True and escolha in nome_paises:
+        print('Voce ja tentou esse pais.')
+        tentativas += 1
+        Return(3924)
+    elif esta_na_lista(escolha,chutes_dados) == 0 and escolha != pais and escolha in nome_paises:  
+      while i <len(chutes_dados):
+        print(chutes_dados[i])
+        i+=1
+    elif escolha not in nome_paises:
+        print('Esse pais não existe, tente novamente.')
+        tentativas +=1
+        Return(3924)
 
-        resposta = str(input('Esta disposto a jogar outra roada? [S/N]: '))
-        if resposta == 'S':
-          print('Oh shit, here we go again...')
-          Return(3911)
-        else: 
-          print('You shall return, I will be wating')
-          c = True
-      elif escolha == 'desisto':
-        desistiu = str(input('Você realmente deseja fugir? [S/N]: '))
-        if desistiu == 'S':
-          print('Você esta livre, mas vou retornar um dia!')
-        else:
-          print('Well then, amuse me.')
-          tentativas +=1
-          Return(3924)
-      elif escolha == 'dica':
-        print('Bem vindo(ou não) ao mercado de dicas\n Dicas:\n 1.Cor da bandeira: 4 tentativas\n 2.Letra da capital: 3 tentativas\n 3.Area: 6 tentativas\n 4.População: 5 tentativas\n 5.Continente: 7 tentativas')
-        print('Para sair sem comprar nada digite 0')
-        #reset mercado
-        escolha_dica = str(input('Qual é sua escolha? [0,1,2,3,4,5]:'))
-        if escolha_dica == 0:
-          print('Voce deixa o mercado de mãos vazias.')
-          Return(3924)
-        elif escolha_dica == 1 and tentativas>4:
-          tentativas -= 4
-          cor_bandeira = sorteia_cor(pais,cores)
-          cores.append(cor_bandeira)
-          print('Voce adiquiriu: Cor da bandeira.')
-          print('A bandeira possui a cor: {}.'.format(cores))
-          Return(3924)
-        elif escolha_dica == 2 and tentativas>3:
-          tentativas -=3
-          capital_pais = dic[pais]['capital']
-          letra_capital = sorteia_letra(capital_pais,l)
-          l.append(letra_capital)
-          print('Voce adquiriu: Letra da capital.')
-          print('Uma (das) letra(s) da capital do pais é(são): {}.'.format(l))
-          Return(3924)
-        elif escolha_dica == 3 and area != 'comprada' and tentativas>6:
-          area = 'comprada'
-          tentativas -= 6
-          area_pais = dic[pais]['area']
-          print('Voce adiquiriu: Area do pais.')
-          print('A area do pais é: {} '.format(area_pais))
-          Return(3924)
-        elif escolha_dica == 4 and populacao != 'comprada' and tentativas>5:
-          populacao = 'comprada'
-          tentativas -= 5
-          populacao_pais = dic[pais]['populacao']
-          print('Voce adiquiriu: População do pais.')
-          print('A população do pais é: {} '.format(populacao_pais))
-          Return(3924)
-        elif escolha_dica == 5 and continente != 'comprado' and tentativas >7:
-          continente = 'comprado'
-          tentativas -= 7
-          continente_pais = dic[pais]['continente']
-          print('Voce adiquiriu: Continente do pais.')
-          print('O continente do pais é: {} '.format(continente_pais))
-          Return(3924)
-        elif escolha_dica == 3 and area == 'comprada':
-          print('Voce ja comprou essa dica.')
-          Return(3954)
-        elif escolha_dica == 4 and populacao == 'comprada':
-          print('Voce ja comprou essa dica.')
-          Return(3954)
-        elif escolha_dica == 5 and continente == 'comprado':
-          print('Voce ja comprou essa dica.')
-          Return(3954)
-        elif escolha_dica == 1 and tentativas<=4:
-          print('Voce não possu tentativas suficentes para compra essa dica.')
-          Return(3954)
-        elif escolha_dica == 2 and tentativas<=3:
-          print('Voce não possu tentativas suficentes para compra essa dica.')
-          Return(3954)
-        elif escolha_dica == 3 and tentativas<=6:
-          print('Voce não possu tentativas suficentes para compra essa dica.')
-          Return(3954)
-        elif escolha_dica == 4 and tentativas<=5:
-          print('Voce não possu tentativas suficentes para compra essa dica.')
-          Return(3954)
-        elif escolha == 5 and tentativas<=7:
-          print('Voce não possu tentativas suficentes para compra essa dica.')
-          Return(3954)
-
-
-
-        
-      elif esta_na_lista(escolha,chutes_dados) == True:
-        print('Voce ja tentou esse pais')
-
-
-
-      Return(3024)
 
