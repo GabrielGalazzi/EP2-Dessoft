@@ -1,5 +1,6 @@
 import random
 
+
 import math
 
 def normaliza(dic):
@@ -3966,6 +3967,8 @@ while c != True:
         tentativas +=1
     if esta_na_lista(escolha,chutes_dados) == True and escolha != pais and escolha in nome_paises:  
       while i <len(chutes_dados):
+        if chutes_dados[i][1]>6000:
+          0
         print(chutes_dados[i])
         i+=1
     if escolha not in nome_paises and escolha != 'dica' and escolha != 'desisto':
@@ -3979,8 +3982,14 @@ while c != True:
         print('Voce deixa o mercado de mãos vazias.')
         y = False
       elif escolha_dica == '1' and tentativas>4:
+        h = False
         tentativas -= 4
         cor_bandeira = sorteia_cor(pais,cores)
+        while h != True:
+          if cor_bandeira == 'outras' or dic[pais]['bandeira'][cor_bandeira] == 0 :
+            cor_bandeira = sorteia_cor(pais,cores)
+          else:
+            h = True
         cores.append(cor_bandeira)
         print('Voce adiquiriu: Cor da bandeira.')
         print('A bandeira possui a cor: {}.'.format(cores))
