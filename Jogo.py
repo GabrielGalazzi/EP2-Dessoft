@@ -1,5 +1,6 @@
 import random
 
+from termcolor import colored
 
 import math
 
@@ -3967,10 +3968,22 @@ while c != True:
         tentativas +=1
     if esta_na_lista(escolha,chutes_dados) == True and escolha != pais and escolha in nome_paises:  
       while i <len(chutes_dados):
-        if chutes_dados[i][1]>6000:
-          0
-        print(chutes_dados[i])
-        i+=1
+        if chutes_dados[i][1]>=5000:
+          f = str(chutes_dados[i][1])
+          print(str(chutes_dados[i][0])+'->'+colored(f,'magenta'))
+          i+=1
+        elif chutes_dados[i][1]<5000 and chutes_dados[i][1]>=2000:
+          z = str(chutes_dados[i][1])
+          print(str(chutes_dados[i][0])+'->'+colored(z,'red'))
+          i+=1
+        elif chutes_dados[i][1]<2000 and chutes_dados>=1000:
+          m = str(chutes_dados[i][1])
+          print(str(chutes_dados[i][0])+'->'+colored(m,'yellow'))
+          i+=1
+        elif chutes_dados[i][1]>2000:
+          n = str(chutes_dados[i][1])
+          print(str(chutes_dados[i][0])+'->'+colored(n,'cyan'))
+          i+=1
     if escolha not in nome_paises and escolha != 'dica' and escolha != 'desisto':
         print('Esse pais não existe, tente novamente.')
         tentativas +=1
