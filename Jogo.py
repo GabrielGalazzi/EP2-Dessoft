@@ -25,6 +25,7 @@ def haversine(r,p1,l1,p2,l2):
     return dist
 
 def adiciona_em_ordem(pais,dist,l):
+    f = 0
     l2 = [[pais,dist]]
     if l2[0][0] in l:
         return l2[0]
@@ -33,12 +34,18 @@ def adiciona_em_ordem(pais,dist,l):
         return l
     else:
       for i in range(len(l)):
-            print(i)
-            if l[i][1]<l2[0][1]:
-             0
-            else:
-                l.insert(i,l2[0])
-                return l
+          print(i)
+          if l[i][1]<l2[0][1]:
+             f=f
+          else:
+              l.insert(i,l2[0])
+              return l
+      for s in range(len(l)):
+        if l[s][1]>l2[0][1]:
+          f = f
+        else:
+          l.insert(s+1,l2[0])
+          return l
 
 def esta_na_lista(pais,l):
   for i in range(len(l)):
@@ -3902,13 +3909,13 @@ dicraw = {
     }
   }
 }
-chutes_dados = []
 dic = normaliza(dicraw)
 
 while c != True:
   #linha reset game
   pais = str(sorteia_pais(dic))
   nome_paises = list(dic.keys())
+  nome_paises.append('reino unido')
   print('Bem vindo ao Insper países\n Que os jogos começem!')
   print('O pais foi escolhido, may the odds be ever in your favor.')
   tentativas = 20
@@ -3923,21 +3930,20 @@ while c != True:
     i = 0
     raio = 6371
     print(pais)
-    escolha = str(input('Diga-me, que pais escolheu? '))
+    escolha = str(input('Diga-me, que pais escolheu: '))
     y = True
     tentativas-=1
     if esta_na_lista(escolha,chutes_dados) == True and escolha in nome_paises:
       print('Voce ja tentou esse pais')
       tentativas +=1
-    elif escolha in nome_paises:
+    if escolha in nome_paises and escolha not in chutes_dados:
       p1 = dic[pais]['geo']['latitude']
       l1 = dic[pais]['geo']['longitude']
       p2 = dic[escolha]['geo']['latitude']
       l2 = dic[escolha]['geo']['latitude']
       distancia = haversine(raio,p1,l1,p2,l2)
       adiciona_em_ordem(escolha,distancia,chutes_dados)
-      print(chutes_dados)
-    elif escolha == pais and escolha in nome_paises:
+    if escolha == pais and escolha in nome_paises:
       resto = abs(tentativas - 20)
       print('Muito bem, desta vez voce conseguiu.')
       print('Voce usou: {} tentativas'.format(resto))
@@ -3945,10 +3951,11 @@ while c != True:
       if resposta == 'S':
         print('Oh shit, here we go again...')
         break
-      else: 
+      if resposta == 'N': 
         print('You shall return, I will be wating')
         c = True
-    elif escolha == 'desisto':
+        tentativas = 0
+    if escolha == 'desisto':
       desistiu = str(input('Você realmente deseja fugir? [S/N]: '))
       if desistiu == 'S':
         print('Você esta livre, mas vou retornar um dia!')
@@ -3957,11 +3964,11 @@ while c != True:
       else:
         print('Well then, amuse me.')
         tentativas +=1
-    elif esta_na_lista(escolha,chutes_dados) == False and escolha != pais and escolha in nome_paises:  
+    if esta_na_lista(escolha,chutes_dados) == True and escolha != pais and escolha in nome_paises:  
       while i <len(chutes_dados):
         print(chutes_dados[i])
         i+=1
-    elif escolha not in nome_paises and escolha != 'dica' and escolha != 'desisto':
+    if escolha not in nome_paises and escolha != 'dica' and escolha != 'desisto':
         print('Esse pais não existe, tente novamente.')
         tentativas +=1
     while escolha == 'dica' and y == True:
@@ -4045,6 +4052,11 @@ while c != True:
         tentativas +=1
         y = False
     print(chutes_dados)
+    #criar final se cara errar tudo
+    #corrigir lista chutes_dados
+    #corrigir fato de escolha nao entrar nas comparações
+    # corrigir print das letra
+    #jogo pronto
       
 
 
