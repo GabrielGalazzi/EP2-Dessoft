@@ -3955,7 +3955,7 @@ while c != True:
     if escolha == 'desisto':
       desistiu = str(input('Você realmente deseja fugir do desafio? [S/N]: '))
       if desistiu == 'S':
-        print('Você esta livre, mas vou retornar um dia!')
+        print('Você esta livre, isso é, por enquanto....')
         tentativas = 0
         c = True
       else:
@@ -3964,19 +3964,19 @@ while c != True:
     if esta_na_lista(escolha,chutes_dados) == True and escolha != pais and escolha in nome_paises:  
       while i <len(chutes_dados):
         if chutes_dados[i][1]>=5000:
-          f = str(chutes_dados[i][1])
+          f = str(int(chutes_dados[i][1]))
           print(str(chutes_dados[i][0])+'->'+colored(f,'magenta'))
           i+=1
         elif chutes_dados[i][1]<5000 and chutes_dados[i][1]>=2000:
-          z = str(chutes_dados[i][1])
+          z = str(int(chutes_dados[i][1]))
           print(str(chutes_dados[i][0])+'->'+colored(z,'red'))
           i+=1
         elif chutes_dados[i][1]<2000 and chutes_dados[i][1]>=1000:
-          m = str(chutes_dados[i][1])
+          m = str(int(chutes_dados[i][1]))
           print(str(chutes_dados[i][0])+'->'+colored(m,'yellow'))
           i+=1
         elif chutes_dados[i][1]>2000:
-          n = str(chutes_dados[i][1])
+          n = str(str(chutes_dados[i][1]))
           print(str(chutes_dados[i][0])+'->'+colored(n,'cyan'))
           i+=1
     if escolha not in nome_paises and escolha != 'dica' and escolha != 'desisto':
@@ -3993,7 +3993,11 @@ while c != True:
         h = False
         tentativas -= 4
         cor_bandeira = sorteia_cor(pais,cores)
+        p = 0
         while h != True:
+          if p> 1000:
+            cor_bandeira = sorteia_cor(pais,cores)
+            h = True
           if cor_bandeira == 'outras' or dic[pais]['bandeira'][cor_bandeira] == 0 :
             cor_bandeira = sorteia_cor(pais,cores)
           else:
@@ -4068,3 +4072,11 @@ while c != True:
         print('Voce não possu tentativas suficentes para compra essa dica.')
         tentativas +=1
         y = False
+
+  print('Voce perdeu, o pais era {}'.format(pais))
+  decisao = str(input('Gostaria de jogar novamente? [S/N]: '))
+  if decisao == 'S':
+    print('Oh shit, here we go again...')
+  elif decisao == 'N':
+    print('Ate a proxima, estarei lhe aguardando.')
+    c = True
