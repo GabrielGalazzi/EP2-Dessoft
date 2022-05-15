@@ -11,12 +11,10 @@ def normaliza(dic):
             dicpais[pais] = dic[continente][pais]
             dicpais[pais]['Continente'] = str(continente)
     return dicpais
-
 def sorteia_pais(dic):
     l_pais = list(dic.keys())
     pais = random.choice(l_pais)
     return pais
-
 def haversine(r,p1,l1,p2,l2):
     p1 = math.radians(p1)
     p2 = math.radians(p2)
@@ -25,7 +23,6 @@ def haversine(r,p1,l1,p2,l2):
     dist = 2 * r * math.asin(((math.sin((p2-p1)/2)**2) + math.cos(p1) * math.cos(p2) * (math.sin((l2-l1)/2) ** 2))** 0.5)
     
     return dist
-
 def adiciona_em_ordem(pais,dist,l):
     f = 0
     l2 = [[pais,dist]]
@@ -36,7 +33,6 @@ def adiciona_em_ordem(pais,dist,l):
         return l
     else:
       for i in range(len(l)):
-          print(i)
           if l[i][1]<l2[0][1]:
              f=f
           else:
@@ -45,16 +41,18 @@ def adiciona_em_ordem(pais,dist,l):
       for s in range(len(l)):
         if l[s][1]>l2[0][1]:
           f = f
-        else:
-          l.insert(s+1,l2[0])
-          return l
-
+        if  s+1 <len(l):
+          if l[s][1]<l2[0][1] and l[s+1][1]>l2[0][1]:
+            l.insert(s,l2[0])
+            return l
+        elif s+1 >= len(l):
+            l.append(l2[0])
+            return l
 def esta_na_lista(pais,l):
   for i in range(len(l)):
     if pais in l[i]:
       return True
   return False
-
 def sorteia_letra(palavra,l):
     i = False
     f = 0
@@ -74,7 +72,6 @@ def sorteia_letra(palavra,l):
             else:
                 i = True
         return letra
-
 def sorteia_cor(pais,cores):
   g = False
   lista_bandeira = list(dic[pais]['bandeira'])
@@ -3917,7 +3914,6 @@ while c != True:
   #linha reset game
   pais = str(sorteia_pais(dic))
   nome_paises = list(dic.keys())
-  nome_paises.append('reino unido')
   print('Bem vindo ao Insper países\n Que os jogos começem!')
   print('O pais foi escolhido, may the odds be ever in your favor.')
   tentativas = 20
@@ -3931,7 +3927,6 @@ while c != True:
   while tentativas>0:
     i = 0
     raio = 6371
-    print(pais)
     escolha = str(input('Diga-me, que pais escolheu: '))
     y = True
     tentativas-=1
@@ -3958,7 +3953,7 @@ while c != True:
         c = True
         tentativas = 0
     if escolha == 'desisto':
-      desistiu = str(input('Você realmente deseja fugir? [S/N]: '))
+      desistiu = str(input('Você realmente deseja fugir do desafio? [S/N]: '))
       if desistiu == 'S':
         print('Você esta livre, mas vou retornar um dia!')
         tentativas = 0
@@ -3976,7 +3971,7 @@ while c != True:
           z = str(chutes_dados[i][1])
           print(str(chutes_dados[i][0])+'->'+colored(z,'red'))
           i+=1
-        elif chutes_dados[i][1]<2000 and chutes_dados>=1000:
+        elif chutes_dados[i][1]<2000 and chutes_dados[i][1]>=1000:
           m = str(chutes_dados[i][1])
           print(str(chutes_dados[i][0])+'->'+colored(m,'yellow'))
           i+=1
@@ -4073,14 +4068,3 @@ while c != True:
         print('Voce não possu tentativas suficentes para compra essa dica.')
         tentativas +=1
         y = False
-    print(chutes_dados)
-    #criar final se cara errar tudo
-    #corrigir lista chutes_dados
-    #corrigir fato de escolha nao entrar nas comparações
-    # corrigir print das letra
-    #jogo pronto
-      
-
-
-
-
