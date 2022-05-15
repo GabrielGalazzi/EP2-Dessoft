@@ -3914,6 +3914,7 @@ while c != True:
   #linha reset game
   pais = str(sorteia_pais(dic))
   nome_paises = list(dic.keys())
+  ganhou = False
   print('Bem vindo ao Insper países\n Que os jogos começem!')
   print('O pais foi escolhido, may the odds be ever in your favor.')
   tentativas = 20
@@ -3927,6 +3928,7 @@ while c != True:
   while tentativas>0:
     i = 0
     raio = 6371
+    print(pais)
     escolha = str(input('Diga-me, que pais escolheu: '))
     y = True
     tentativas-=1
@@ -3945,6 +3947,7 @@ while c != True:
       print('Muito bem, desta vez voce conseguiu.')
       print('Voce usou: {} tentativas'.format(resto))
       resposta = str(input('Esta disposto a jogar outra roada? [S/N]: '))
+      ganhou = True
       if resposta == 'S':
         print('Oh shit, here we go again...')
         break
@@ -4072,11 +4075,11 @@ while c != True:
         print('Voce não possu tentativas suficentes para compra essa dica.')
         tentativas +=1
         y = False
-
-  print('Voce perdeu, o pais era {}'.format(pais))
-  decisao = str(input('Gostaria de jogar novamente? [S/N]: '))
-  if decisao == 'S':
-    print('Oh shit, here we go again...')
-  elif decisao == 'N':
-    print('Ate a proxima, estarei lhe aguardando.')
-    c = True
+  if ganhou == False and tentativas == 0:
+    print('Voce perdeu, o pais era {}'.format(pais))
+    decisao = str(input('Gostaria de jogar novamente? [S/N]: '))
+    if decisao == 'S':
+      print('Oh shit, here we go again...')
+    elif decisao == 'N':
+      print('Ate a proxima, estarei lhe aguardando.')
+      c = True
