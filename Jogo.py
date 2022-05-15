@@ -3928,7 +3928,6 @@ while c != True:
   while tentativas>0:
     i = 0
     raio = 6371
-    print(pais)
     escolha = str(input('Diga-me, que pais escolheu: '))
     y = True
     tentativas-=1
