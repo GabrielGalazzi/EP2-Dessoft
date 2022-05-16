@@ -9,7 +9,7 @@ def normaliza(dic):
     for continente in dic:
         for pais in dic[continente]:
             dicpais[pais] = dic[continente][pais]
-            dicpais[pais]['Continente'] = str(continente)
+            dicpais[pais]['continente'] = str(continente)
     return dicpais
 def sorteia_pais(dic):
     l_pais = list(dic.keys())
@@ -4074,6 +4074,7 @@ while c != True:
         print('Voce não possu tentativas suficentes para compra essa dica.')
         tentativas +=1
         y = False
+    print('Voce tem '+ colored(str(tentativas),'magenta')+' tentativas restantes')
   if ganhou == False and tentativas == 0:
     print('Voce perdeu, o pais era {}'.format(pais))
     decisao = str(input('Gostaria de jogar novamente? [S/N]: '))
