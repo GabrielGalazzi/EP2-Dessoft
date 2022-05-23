@@ -4083,3 +4083,4 @@ while c != True:
     elif decisao == 'N':
       print('Ate a proxima, estarei lhe aguardando.')
       c = True
+
